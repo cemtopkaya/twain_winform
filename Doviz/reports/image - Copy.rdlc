@@ -11,9 +11,9 @@
             <MIMEType>=Parameters!MimeType.Value.ToString().ToLower()</MIMEType>
             <Sizing>FitProportional</Sizing>
             <Top>0.17639cm</Top>
-            <Left>0.34875cm</Left>
-            <Height>9.84527cm</Height>
-            <Width>15.4093cm</Width>
+            <Left>0.98375cm</Left>
+            <Height>8.20485cm</Height>
+            <Width>14.50812cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -57,8 +57,8 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>12.82083cm</Top>
-            <Left>1.46cm</Left>
+            <Top>9.96333cm</Top>
+            <Left>2.095cm</Left>
             <Height>1.4cm</Height>
             <Width>6.14328cm</Width>
             <ZIndex>1</ZIndex>
@@ -91,8 +91,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>11.93861cm</Top>
-            <Left>4.73286cm</Left>
+            <Top>9.08111cm</Top>
+            <Left>5.36786cm</Left>
             <Height>0.70583cm</Height>
             <Width>6.41584cm</Width>
             <ZIndex>2</ZIndex>
@@ -133,8 +133,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DocumentNo</rd:DefaultName>
-            <Top>12.82083cm</Top>
-            <Left>8.10037cm</Left>
+            <Top>9.96333cm</Top>
+            <Left>8.73537cm</Left>
             <Height>0.7cm</Height>
             <Width>6.35963cm</Width>
             <ZIndex>3</ZIndex>
@@ -182,8 +182,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>13.57083cm</Top>
-            <Left>8.10037cm</Left>
+            <Top>10.71333cm</Top>
+            <Left>8.73537cm</Left>
             <Height>0.7cm</Height>
             <Width>6.35963cm</Width>
             <ZIndex>4</ZIndex>
@@ -233,8 +233,8 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>14.45775cm</Top>
-            <Left>1.46cm</Left>
+            <Top>11.60025cm</Top>
+            <Left>2.095cm</Left>
             <Height>2.5cm</Height>
             <Width>13cm</Width>
             <ZIndex>5</ZIndex>
@@ -285,8 +285,8 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>17.09886cm</Top>
-            <Left>1.46cm</Left>
+            <Top>14.24136cm</Top>
+            <Left>2.095cm</Left>
             <Height>0.75cm</Height>
             <Width>13cm</Width>
             <ZIndex>6</ZIndex>
@@ -375,8 +375,8 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>18.02525cm</Top>
-            <Left>1.46cm</Left>
+            <Top>15.16775cm</Top>
+            <Left>2.095cm</Left>
             <Height>2.5cm</Height>
             <Width>13cm</Width>
             <ZIndex>7</ZIndex>
@@ -431,8 +431,8 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>21.37398cm</Top>
-            <Left>1.46cm</Left>
+            <Top>18.51648cm</Top>
+            <Left>2.095cm</Left>
             <Height>2.98415cm</Height>
             <Width>6.14328cm</Width>
             <ZIndex>8</ZIndex>
@@ -465,8 +465,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>20.66815cm</Top>
-            <Left>2.30613cm</Left>
+            <Top>17.81065cm</Top>
+            <Left>2.94113cm</Left>
             <Height>0.6cm</Height>
             <Width>4.26942cm</Width>
             <ZIndex>9</ZIndex>
@@ -498,8 +498,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>20.66815cm</Top>
-            <Left>9.8203cm</Left>
+            <Top>17.81065cm</Top>
+            <Left>10.4553cm</Left>
             <Height>0.6cm</Height>
             <Width>2.73484cm</Width>
             <ZIndex>10</ZIndex>
@@ -536,8 +536,8 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>21.37399cm</Top>
-            <Left>8.10037cm</Left>
+            <Top>18.51649cm</Top>
+            <Left>8.73537cm</Left>
             <Height>2.98415cm</Height>
             <Width>6.35963cm</Width>
             <ZIndex>11</ZIndex>
@@ -552,8 +552,68 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox7">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Kazım Özalp Cd. Tolunaylar İş Mrk. No: 34/B Muratpaşa / Antalya - T: +90 (242) 2 444 777 - F: +90 (242) 247 79 83</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>www.tolunaylar.com.tr - info@tolunaylar.com.tr</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Mersis No: 0850 0003 2040 0013</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>21.82662cm</Top>
+            <Left>0.55404cm</Left>
+            <Height>1.19834cm</Height>
+            <Width>15.20401cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>243.5814mm</Height>
+        <Height>233.42462mm</Height>
         <Style />
       </Body>
       <Width>163.12083mm</Width>
@@ -583,75 +643,6 @@
             </Border>
           </Style>
         </PageHeader>
-        <PageFooter>
-          <Height>1.15613cm</Height>
-          <PrintOnFirstPage>true</PrintOnFirstPage>
-          <PrintOnLastPage>true</PrintOnLastPage>
-          <ReportItems>
-            <Textbox Name="Textbox2">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Kazım Özalp Cd. Tolunaylar İş Mrk. No: 34/B Muratpaşa / Antalya - T: +90 (242) 2 444 777 - F: +90 (242) 247 79 83</Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>www.tolunaylar.com.tr - info@tolunaylar.com.tr</Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Mersis No: 0850 0003 2040 0013</Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox2</rd:DefaultName>
-              <Top>0.14111cm</Top>
-              <Left>0.55404cm</Left>
-              <Height>1.01502cm</Height>
-              <Width>15.20401cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-          </ReportItems>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>2cm</LeftMargin>

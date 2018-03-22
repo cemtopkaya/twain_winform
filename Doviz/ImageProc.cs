@@ -4,17 +4,28 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Doviz
 {
     public class ImageProc
     {
-        public static byte[] ImageToByte(Image img)
+        public static byte[] ImageToByte(Image image)
         {
-            ImageConverter converter = new ImageConverter();
-            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var bmp = new Bitmap(image))
+                    bmp.Save(ms, image.RawFormat);
+                return ms.ToArray();
+            }
+
+            //var _imageConverter = new ImageConverter();
+            //byte[] xByte = (byte[])_imageConverter.ConvertTo(image.Clone(), typeof(byte[]));
+            //return xByte;
+
+
         }
-        
+
         public static ImageFormat GetImageFormat(Image img)
         {
             if (img.RawFormat.Equals(ImageFormat.Jpeg))
@@ -58,9 +69,9 @@ namespace Doviz
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g.TranslateTransform(dx: outputImageWidth / 2, dy: outputImageHeight / 2);
-                g.RotateTransform((float) (Math.Atan2(outputImageHeight, outputImageWidth) * (180 / Math.PI)));
+                g.RotateTransform((float)(Math.Atan2(outputImageHeight, outputImageWidth) * (180 / Math.PI)));
 
-                var font = new Font("Tahoma", 40, FontStyle.Bold);
+                var font = new Font("Tahoma", 20, FontStyle.Bold);
                 var textSize = g.MeasureString(stamp, font);
                 g.DrawString(stamp, font, Brushes.Red, -(textSize.Width / 2), -(textSize.Height / 2));
 
@@ -74,57 +85,70 @@ namespace Doviz
         {
             return null;
         }
+
         public static Image MergeImagesHorizontal(Image firstImage, Image secondImage)
         {
-            if (firstImage == null)
-            {
-                throw new ArgumentNullException("firstImage");
-            }
-
-            if (secondImage == null)
-            {
-                throw new ArgumentNullException("secondImage");
-            }
+            if (firstImage == null) throw new ArgumentNullException("firstImage");
+            if (secondImage == null) throw new ArgumentNullException("secondImage");
 
             int outputImageWidth = firstImage.Width + secondImage.Width + 1;
-
             int outputImageHeight = firstImage.Height;
 
-            Bitmap outputImage = new Bitmap(outputImageWidth, outputImageHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-            using (Graphics g = Graphics.FromImage(outputImage))
+            //Bitmap outputImage = new Bitmap(outputImageWidth, outputImageHeight, PixelFormat.Format16bppGrayScale);
+            Bitmap bitmap = null;
+            try
             {
-                g.DrawImage(firstImage,
-                    new System.Drawing.Rectangle(new System.Drawing.Point(), firstImage.Size),
-                    new System.Drawing.Rectangle(new System.Drawing.Point(), firstImage.Size),
-                    GraphicsUnit.Pixel);
-                g.DrawImage(secondImage,
-                    new System.Drawing.Rectangle(new System.Drawing.Point(firstImage.Width + 1, 0), secondImage.Size),
-                    new System.Drawing.Rectangle(new System.Drawing.Point(), secondImage.Size),
-                    GraphicsUnit.Pixel);
+                bitmap = new Bitmap(outputImageWidth, outputImageHeight);
+                using (var canvas = Graphics.FromImage(bitmap))
+                {
+                    canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    canvas.DrawImage(firstImage,
+                        new Rectangle(new Point(), firstImage.Size),
+                        new Rectangle(new Point(), firstImage.Size),
+                        GraphicsUnit.Pixel);
+                    canvas.DrawImage(secondImage,
+                        new Rectangle(new Point(firstImage.Width + 1, 0), secondImage.Size),
+                        new Rectangle(new Point(), secondImage.Size),
+                        GraphicsUnit.Pixel);
 
 
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                g.TranslateTransform(outputImage.Width / 2, outputImage.Height / 2);
-                g.RotateTransform(30);
-                String damga = "BAÞKA BÝR AMAÇLA KULLANILAMAZ";
-                Font font = new Font("Tahoma", 40);
-                SizeF textSize = g.MeasureString(damga, font);
-                g.DrawString(damga, font, System.Drawing.Brushes.Red, -(textSize.Width / 2), -(textSize.Height / 2));
+                    //g.SmoothingMode = SmoothingMode.AntiAlias;
+                    //    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    //    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    //    g.TranslateTransform(outputImage.Width / 2, outputImage.Height / 2);
+                    //    //g.RotateTransform((float) (Math.Atan2(outputImageHeight,outputImageWidth)*180*Math.PI));
+                    //    g.RotateTransform(45);
+                    //    String damga = "BAÞKA BÝR AMAÇLA KULLANILAMAZ";
+                    //    Font font = new Font("Tahoma", 40, FontStyle.Bold);
+                    //    SizeF textSize = g.MeasureString(damga, font);
+                    //    g.DrawString(damga, font, System.Drawing.Brushes.Red, -(textSize.Width / 2), -(textSize.Height / 2));
 
-                g.Flush();
+                    canvas.Flush();
+                }
+
+                return bitmap;
             }
+            catch (Exception ex)
+            {
+                bitmap?.Dispose();
 
-            return outputImage;
+                throw ex;
+            }
+            finally
+            {
+                firstImage?.Dispose();
+                secondImage?.Dispose();
+            }
         }
+
 
         public static Image ConvertImage(Image watermarkedImage, ImageFormat format)
         {
-            var ms = new MemoryStream();
-            watermarkedImage.Save(ms, format);
-            return Image.FromStream(ms);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                watermarkedImage.Save(ms, format);
+                return Image.FromStream(ms);
+            }
         }
     }
 }

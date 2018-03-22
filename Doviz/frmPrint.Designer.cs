@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrint));
             this.report = new Microsoft.Reporting.WinForms.ReportViewer();
             this.SuspendLayout();
             // 
@@ -37,6 +38,12 @@
             this.report.LocalReport.ReportEmbeddedResource = "Doviz.reports.image.rdlc";
             this.report.Location = new System.Drawing.Point(0, 0);
             this.report.Name = "report";
+            this.report.ShowBackButton = false;
+            this.report.ShowExportButton = false;
+            this.report.ShowFindControls = false;
+            this.report.ShowRefreshButton = false;
+            this.report.ShowStopButton = false;
+            this.report.ShowZoomControl = false;
             this.report.Size = new System.Drawing.Size(594, 526);
             this.report.TabIndex = 0;
             // 
@@ -46,8 +53,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 526);
             this.Controls.Add(this.report);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPrint";
-            this.Text = "frmPrint";
+            this.Text = "Tolunaylar - Yazdır";
             this.Load += new System.EventHandler(this.frmPrint_Load);
             this.ResumeLayout(false);
 
