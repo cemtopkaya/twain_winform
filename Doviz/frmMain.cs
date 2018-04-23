@@ -26,7 +26,8 @@ namespace Doviz
             _twain.TransferImage += evt_transferImage;
             _twain.ScanningComplete += evt_scanComplete;
 
-            fillDummyData();
+            //fillDummyData();
+            resetInputs();
             SetTwainSettings();
         }
 
@@ -36,7 +37,7 @@ namespace Doviz
             try
             {
                 _lstImages.Clear();
-                //resetInputs();
+                resetInputs();
                 _twain.StartScanning(_scanSettings);
             }
             catch (TwainException tex)
@@ -77,29 +78,26 @@ namespace Doviz
                 Rotation = new RotationSettings { AutomaticRotate = true, AutomaticBorderDetection = true },
                 Resolution = new ResolutionSettings { ColourSetting = ColourSetting.GreyScale, Dpi = 100 }
             };
-            //_scanSettings.ShowTwainUI = true;
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            var imageFormat = ImageProc.GetImageFormat(pbScannedImage.Image);
+            ImageFormat imageFormat = ImageProc.GetImageFormat(this.pbScannedImage.Image);
             imageFormat = ImageFormat.Jpeg;
-            var watermarkedImage = ImageProc.WatermarkImage(pbScannedImage.Image);
-            var jpegImage = ImageProc.ConvertImage(watermarkedImage, imageFormat);
-            var barrImage = ImageProc.ImageToByte(jpegImage);
-
-            var musteri = new Musteri
+            Image watermarkedImage = ImageProc.WatermarkImage(this.pbScannedImage.Image);
+            Image jpegImage = ImageProc.ConvertImage(watermarkedImage, imageFormat);
+            byte[] barrImage = ImageProc.ImageToByte(jpegImage);
+            Musteri musteri = new Musteri
             {
-                Date = tbDate.Text,
+                Date = this.tbDate.Text,
                 ScannedImage = Convert.ToBase64String(barrImage),
                 ScannedImageFormat = ImageProc.GetMimeType(imageFormat),
-                Address = tbAddress.Text,
-                DocumentNo = tbDocNo.Text,
-                RecNo = tbRecNo.Text,
-                Tel = tbTel.Text
+                Address = this.tbAddress.Text,
+                DocumentNo = this.tbDocNo.Text,
+                RecNo = this.tbRecNo.Text,
+                Tel = this.tbTel.Text
             };
-
-            using (var frmPrint = new frmPrint(musteri))
+            using (frmPrint frmPrint = new frmPrint(musteri))
             {
                 frmPrint.ShowDialog();
             }
@@ -107,7 +105,7 @@ namespace Doviz
 
         void resetInputs()
         {
-            tbDate.Text = "";
+            tbDate.Text = DateTime.Now.ToShortDateString();
             tbAddress.Text = "";
             tbDocNo.Text = "";
             tbRecNo.Text = "";
@@ -139,56 +137,125 @@ namespace Doviz
             {
                 WorkerArgs wArgs = new WorkerArgs
                 {
-                    _bitmap = _lstImages,
-                    _twain = _twain,
-                    _settings = _scanSettings
+                    _bitmap = this._lstImages,
+                    _twain = this._twain,
+                    _settings = this._scanSettings
                 };
-
-                worker.DoWork += bgWorker_DoWork;
-                worker.RunWorkerCompleted += bgWorker_RunWorkerCompleted;
+                worker.DoWork += new DoWorkEventHandler(this.bgWorker_DoWork);
+                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.bgWorker_RunWorkerCompleted);
                 worker.RunWorkerAsync(wArgs);
             }
         }
 
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-            => MessageBox.Show("BG Worker taraması tamamlandır");
+            => MessageBox.Show("BG Worker taraması tamamlandı");
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                WorkerArgs thisArgs = (WorkerArgs)e.Argument as WorkerArgs;
-                if (thisArgs != null)
+                WorkerArgs thisArgs = (WorkerArgs)e.Argument;
+                bool flag = thisArgs != null;
+                if (flag)
                 {
                     AutoResetEvent waitHandle = new AutoResetEvent(false);
-                    thisArgs._twain.ScanningComplete += (se, ev) =>
-                                                        {
-                                                            evt_scanComplete(se, ev);
-                                                            waitHandle.Set();
-                                                        };
-                    thisArgs._twain.StartScanning(_scanSettings);
+                    thisArgs._twain.ScanningComplete += delegate (object se, ScanningCompleteEventArgs ev)
+                    {
+                        this.evt_scanComplete(se, ev);
+                        waitHandle.Set();
+                    };
+                    thisArgs._twain.StartScanning(this._scanSettings);
                     waitHandle.WaitOne();
-
-                    //if (thisArgs._twain.Images.Count < 0)
-                    //{
-                    //    foreach (var image in twain.Images)
-                    //    {
-                    //        BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(new Bitmap(image).GetHbitmap(),
-                    //            IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-                    //        thisArgs._bitmapSources.Add(bitmapSource);
-                    //    }
-                    //}
                 }
             }
             catch (Exception up)
             {
-                throw up; // :P
+                throw up;
             }
         }
 
         private void hakkındaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new frmHakkinda().Show();
+        }
+
+
+        private void tbDate_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool flag = this.tbDate.Text == "  .  .";
+            if (flag)
+            {
+                e.SuppressKeyPress = true;
+                switch (e.KeyValue)
+                {
+                    case 48:
+                    case 49:
+                    case 50:
+                    case 51:
+                        this.tbDate.Text = ((char)e.KeyValue).ToString();
+                        break;
+                }
+            }
+        }
+        private void tbTel_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool flag = this.tbTel.Text == "   -   -  -";
+            if (flag)
+            {
+                e.SuppressKeyPress = true;
+                int pressedNumber = -1;
+                switch (e.KeyCode)
+                {
+                    case Keys.NumPad0:
+                        pressedNumber = 0;
+                        break;
+                    case Keys.NumPad1:
+                        pressedNumber = 1;
+                        break;
+                    case Keys.NumPad2:
+                        pressedNumber = 2;
+                        break;
+                    case Keys.NumPad3:
+                        pressedNumber = 3;
+                        break;
+                    case Keys.NumPad4:
+                        pressedNumber = 4;
+                        break;
+                    case Keys.NumPad5:
+                        pressedNumber = 5;
+                        break;
+                    case Keys.NumPad6:
+                        pressedNumber = 6;
+                        break;
+                    case Keys.NumPad7:
+                        pressedNumber = 7;
+                        break;
+                    case Keys.NumPad8:
+                        pressedNumber = 8;
+                        break;
+                    case Keys.NumPad9:
+                        pressedNumber = 9;
+                        break;
+                }
+                bool flag2 = pressedNumber > 0 && pressedNumber < 6;
+                if (flag2)
+                {
+                    this.tbTel.Text = pressedNumber.ToString();
+                }
+                else
+                {
+                    switch (e.KeyValue)
+                    {
+                        case 49:
+                        case 50:
+                        case 51:
+                        case 52:
+                        case 53:
+                            this.tbTel.Text = ((char)e.KeyValue).ToString();
+                            break;
+                    }
+                }
+            }
         }
     }
     public class WorkerArgs
